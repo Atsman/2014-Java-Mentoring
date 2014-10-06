@@ -1,8 +1,7 @@
 package com.epam.mentoring.lessone.action;
 
-import java.io.File;
-import java.net.MalformedURLException;
-import java.net.URL;
+import com.epam.mentoring.lessone.classloader.SecureClassLoader;
+
 import java.security.PrivilegedAction;
 
 public class AccessPackageAction implements PrivilegedAction {
@@ -17,23 +16,21 @@ public class AccessPackageAction implements PrivilegedAction {
 	
 	@Override
 	public Object run() {
-		File file = new File(JAR_PATH);
-		URL jarUrl;
 		try {
-			jarUrl = file.toURI().toURL();
-			
-			//TODO: implement class loader
-			//SecureURLClassloader scl = new SecureURLClassloader(jarUrl);
-			//scl.getClass(CLASS_NAME);
-			
-			
+			SecureClassLoader scl = new SecureClassLoader(JAR_PATH);
+			Class<?> semaphore = scl.loadClass(CLASS_NAME);
+
+            SemaphoreProxy semaphoreProxy = new SemaphoreProxy(semaphore);
+            semaphoreProxy.lever();
+
 			System.out.println("Class load: success!");
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
 		} catch (SecurityException e) {
 			e.printStackTrace();
-		}
+		} catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 		return null;
 	}
-
 }
