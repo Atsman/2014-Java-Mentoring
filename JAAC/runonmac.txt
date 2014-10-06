@@ -1,0 +1,1 @@
+java -cp SemaphoreApp.jar:SemaphoreLogin.jar:SemaphoreActions.jar -Djava.security.auth.login.config=jaas.config -Djava.security.manager -Djava.security.policy=semaphore.policy com.epam.mentoring.lessone.app.SemaphoreApp

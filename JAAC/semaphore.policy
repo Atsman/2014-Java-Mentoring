@@ -1,23 +1,19 @@
-/** Access Control Policy for the Application **/
+/* AUTOMATICALLY GENERATED ON Mon Oct 06 10:09:40 FET 2014*/
+/* DO NOT EDIT */
 
-/* grant the sample LoginModule permissions */
-grant codebase "file:./SemaphoreLogin.jar" {
-    permission javax.security.auth.AuthPermission "modifyPrincipals"; 
+grant codeBase "file:./SemaphoreLogin.jar" {
+  permission javax.security.auth.AuthPermission "modifyPrincipals";
 };
 
-grant codebase "file:./SemaphoreApp.jar" {
-   permission javax.security.auth.AuthPermission "createLoginContext.Semaphore";
-   permission javax.security.auth.AuthPermission "doAsPrivileged";
+grant codeBase "file:./SemaphoreApp.jar" {
+  permission javax.security.auth.AuthPermission "createLoginContext.Semaphore";
+  permission javax.security.auth.AuthPermission "doAsPrivileged";
 };
 
-/** User-Based Access Control Policy **/
-
-grant codebase "file:./SemaphoreActions.jar",
-	Principal com.epam.mentoring.lessone.principal.SemaphorePrincipal "test" {
-
-   permission java.util.PropertyPermission "user.dir", "read";
-   permission java.lang.RuntimePermission "createClassLoader";
-
-//   permission java.io.FilePermission "./Semaphore.jar", "read";
-
+grant codeBase "file:./SemaphoreActions.jar",
+      principal com.epam.mentoring.lessone.principal.SemaphorePrincipal "test" {
+      permission java.util.PropertyPermission "user.dir", "read";
+      permission java.lang.RuntimePermission "createClassLoader";
+      permission java.io.FilePermission "./Semaphore.jar", "read";
 };
+
