@@ -45,3 +45,5 @@ pom.xml.next
 release.properties
 /01.Classloading/*.classpath
 /01.Classloading/*.project
+*.classpath
+*.project
