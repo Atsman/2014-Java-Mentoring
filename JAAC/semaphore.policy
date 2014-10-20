@@ -13,6 +13,7 @@ grant codeBase "file:./SemaphoreApp.jar" {
 grant codeBase "file:./SemaphoreActions.jar",
       principal com.epam.mentoring.lessone.principal.SemaphorePrincipal "test" {
       permission java.util.PropertyPermission "user.dir", "read";
+      permission java.lang.RuntimePermission "createClassLoader";
       permission java.io.FilePermission "./Semaphore.jar", "read";
 };
 
