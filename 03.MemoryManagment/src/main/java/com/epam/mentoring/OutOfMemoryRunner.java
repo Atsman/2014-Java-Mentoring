@@ -5,14 +5,15 @@ package com.epam.mentoring;
  */
 public class OutOfMemoryRunner {
 
-    public static void main(String args[]) {
+    public static void main(String args[]) throws InterruptedException {
         B b = new B();
         B prev = new B();
-        prev.b = b;
+        prev.setB(b);
         while (true) {
             B cur = new B();
-            cur.b = prev;
+            cur.setB(prev);
             prev = cur;
+            Thread.sleep(1L);
         }
     }
 
