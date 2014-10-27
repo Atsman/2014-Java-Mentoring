@@ -13,7 +13,7 @@ public class OutOfMemoryRunner {
             B cur = new B();
             cur.setB(prev);
             prev = cur;
-            Thread.sleep(1L);
+            Thread.sleep(1);
         }
     }
 
