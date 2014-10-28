@@ -1,44 +1,32 @@
 package com.epam.mentoring.prodcons;
 
-import org.apache.log4j.Logger;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Created by alehatsman on 10/26/14.
  */
 public class Queue {
 
-    private Logger log = Logger.getLogger(getClass());
+    private List<Object> queue = new LinkedList<>();
+    private int  limit = 10;
 
-    private Object message;
-    private boolean isFull = false;
-
-    public synchronized Object get() {
-        while(!isFull) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                log.info("InterruptedException", e);
-            }
-        }
-        log.info("Got " + message);
-        isFull = false;
-        notify();
-        return message;
+    public Queue(int limit){
+        this.limit = limit;
     }
 
-    public synchronized void put(Object message) {
-        while(isFull) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                log.info("InterruptedException", e);
-            }
+    public synchronized Object get() {
+        if(this.queue.size() == 0){
+            return null;
         }
+        return this.queue.remove(0);
+    }
 
-        this.message = message;
-        isFull = true;
-        log.info("Put " + message);
-        notify();
+    public synchronized void put(Object message) throws FullQueueException {
+        while(this.queue.size() == this.limit) {
+            throw new FullQueueException("Queue is full");
+        }
+        this.queue.add(message);
     }
 
 }

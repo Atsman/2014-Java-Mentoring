@@ -6,9 +6,12 @@ package com.epam.mentoring.prodcons;
 public class Runner {
 
     public static void main(String[] args) {
-        Queue queue = new Queue();
-        new Producer(queue);
-        new Consumer(queue);
+        Queue queue = new Queue(10);
+        new Producer(queue, "P1");
+        new Producer(queue, "P2");
+        new Consumer(queue, "C1");
+        new Consumer(queue, "C2");
+        new Consumer(queue, "C3");
     }
 
 }
