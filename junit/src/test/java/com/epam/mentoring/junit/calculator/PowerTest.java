@@ -11,8 +11,10 @@ public class PowerTest extends AbstractFuncTest {
 
     @Test
     public void test() {
-        assertTrue(calculator.power(2, 3) == 8);
-        assertTrue(calculator.power(3, 2) == 9);
+        assertEquals(8, calculator.power(2, 3), 0);
+        assertEquals(9, calculator.power(3, 2), 0);
+        assertEquals(9, calculator.power(-3, 2), 0);
+        assertEquals(3, calculator.power(9, 0.5), 0);
     }
 
 }

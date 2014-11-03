@@ -12,9 +12,7 @@ import org.mockito.stubbing.Answer;
 import java.util.ArrayList;
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.*;
 /**
@@ -69,6 +67,8 @@ public class UserServiceTest  {
             }
         });
 
+        when(userDAO.delete(anyLong())).thenReturn(true);
+
         userService = new UserServiceImpl(userDAO);
     }
 
@@ -89,6 +89,11 @@ public class UserServiceTest  {
     public void save() {
         long id = userService.save(new User("username", "password"));
         assertNotNull(id);
+    }
+
+    @Test
+    public void delete() {
+        assertTrue(userService.delete(1L));
     }
 
 }

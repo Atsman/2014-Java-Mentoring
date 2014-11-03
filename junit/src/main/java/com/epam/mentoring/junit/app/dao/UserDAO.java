@@ -17,6 +17,6 @@ public interface UserDAO {
 
     public long save(User user);
 
-    public void delete(long id);
+    public boolean delete(long id);
 
 }
