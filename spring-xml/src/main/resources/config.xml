@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+
+<beans>
+
+    <bean id="messageService" class="com.epam.mentoring.spring.service.impl.MessageServiceImpl">
+    </bean>
+
+    <bean id="messageFormatterService" class="com.epam.mentoring.spring.service.impl.MessageFormatterServiceImpl">
+        <property name="start" value="${formatter.start}"/>
+        <property name="end" value="${formatter.end}"/>
+    </bean>
+
+    <bean id="messagePrinterService" class="com.epam.mentoring.spring.service.impl.MessagePrinterServiceImpl">
+        <property name="messageService" ref="messageService"/>
+        <constructor-arg ref="messageFormatterService"/>
+    </bean>
+
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location">
+            <value>props.properties</value>
+        </property>
+    </bean>
+
+    <bean id="someBean" class="com.epam.mentoring.spring.factory.impl.FactoryBeanImpl"/>
+
+</beans>
