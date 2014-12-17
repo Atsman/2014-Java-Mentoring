@@ -9,10 +9,9 @@ import static  org.junit.Assert.*;
  */
 public class PrimeNegTest extends AbstractFuncTest {
 
-    @Test(timeout=10000)
+    @Test(timeout=1000, expected = Exception.class)
     public void timeout() {
-        //calculator.isPrime(5600748293801L);
-        assertTrue(true);
+        calculator.isPrime(5600748293801L);
     }
 
 }

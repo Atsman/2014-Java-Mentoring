@@ -7,7 +7,6 @@ import java.util.List;
 /**
  * Created by alehatsman on 11/23/14.
  */
-
 @Entity(name = "UserTable")
 public class User implements Serializable{
 

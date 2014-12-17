@@ -17,14 +17,14 @@ import java.util.List;
  * Created by alehatsman on 11/23/14.
  */
 @Stateless
-@DeclareRoles("user")
+@DeclareRoles("testrole")
 @TransactionManagement(TransactionManagementType.CONTAINER)
 public class TweetBeanImpl implements TweetBeanLocal, TweetBeanRemote {
 
     @PersistenceContext
     private EntityManager em;
 
-    @RolesAllowed("user")
+    @RolesAllowed("testrole")
     @TransactionAttribute(TransactionAttributeType.REQUIRED)
     public void save(Tweet tweet) {
         em.persist(tweet);

@@ -6,7 +6,6 @@ import java.io.Serializable;
 /**
  * Created by alehatsman on 11/23/14.
  */
-
 @Entity
 public class Tweet implements Serializable {
 
@@ -28,11 +27,12 @@ public class Tweet implements Serializable {
         this.author = author;
     }
 
+    public int getId() {
+        return id;
+    }
+
     public String getText() {
         return text;
     }
 
-    public int getId() {
-        return id;
-    }
 }

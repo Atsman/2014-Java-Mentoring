@@ -14,6 +14,7 @@ public class PrimeTest extends AbstractFuncTest {
         assertFalse(calculator.isPrime(6));
         assertTrue(calculator.isPrime(5));
         assertTrue(calculator.isPrime(93563));
+        assertFalse(calculator.isPrime(121));
     }
 
 }
