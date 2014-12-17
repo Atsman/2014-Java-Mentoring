@@ -6,10 +6,10 @@ import org.springframework.beans.factory.FactoryBean;
 /**
  * Created by alehatsman on 12/17/14.
  */
-public class FactoryBeanImpl implements FactoryBean {
+public class FactoryBeanImpl implements FactoryBean<SomeBean> {
 
     @Override
-    public Object getObject() throws Exception {
+    public SomeBean getObject() throws Exception {
         return new SomeBeanImpl();
     }
 
