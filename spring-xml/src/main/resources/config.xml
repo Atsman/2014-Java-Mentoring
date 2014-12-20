@@ -3,30 +3,9 @@
 
 <beans>
     <import resource="classpath:spring-config.xml" />
+    <import resource="classpath:message-services.xml" />
 
-    <bean id="messageService" class="com.epam.mentoring.spring.service.impl.MessageServiceImpl"
-          scope="singleton"
-          factory-method="createInstance"
-          init-method="init"
-          destroy-method="destroy">
-        <constructor-arg value="Default message from xml config" type="java.lang.String"/>
-    </bean>
-
-    <bean id="messageFormatterServiceLocator" class="com.epam.mentoring.spring.service.impl.MessageFormatterServiceLocator"/>
-
-    <bean id="messageFormatterService"
-          factory-bean="messageFormatterServiceLocator"
-          factory-method="createMessageFormatterService"
-          scope="prototype">
-        <constructor-arg value="${formatter.start}"/>
-        <constructor-arg value="${formatter.end}"/>
-    </bean>
-
-    <bean id="messagePrinterService" class="com.epam.mentoring.spring.service.impl.MessagePrinterServiceImpl">
-        <property name="messageService" ref="messageService"/>
-        <constructor-arg ref="messageFormatterService"/>
-        <constructor-arg value="0" type="int"/>
-    </bean>
+    <bean id="contextBean" class="com.epam.mentoring.spring.service.context.impl.ContextBeanImpl"/>
 
     <bean id="someBean" class="com.epam.mentoring.spring.service.factory.impl.FactoryBeanImpl"/>
 

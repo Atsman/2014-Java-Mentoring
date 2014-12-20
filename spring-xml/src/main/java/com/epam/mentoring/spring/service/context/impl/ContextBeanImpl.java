@@ -1,5 +1,6 @@
 package com.epam.mentoring.spring.service.context.impl;
 
+import com.epam.mentoring.spring.service.MessageService;
 import com.epam.mentoring.spring.service.context.ContextBean;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -14,10 +15,12 @@ public class ContextBeanImpl implements ContextBean, ApplicationContextAware {
 
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
-        applicationContext = applicationContext;
+        this.applicationContext = applicationContext;
     }
 
     public void doSmth() {
+        MessageService messageService = (MessageService)applicationContext.getBean("messageService");
+        messageService.setMessage("Message changed from contextBean");
     }
 
 }

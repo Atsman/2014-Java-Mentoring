@@ -2,6 +2,7 @@ package com.epam.mentoring.spring;
 
 import com.epam.mentoring.spring.service.MessagePrinterService;
 import com.epam.mentoring.spring.service.MessageService;
+import com.epam.mentoring.spring.service.context.ContextBean;
 import com.epam.mentoring.spring.service.thread.ThreadService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -12,7 +13,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class Application {
     public static void main(String[] args) throws InterruptedException {
         try (final ClassPathXmlApplicationContext context = new ClassPathXmlApplicationContext("config.xml")) {
-            MessagePrinterService messagePrinterService = getMessagePrinterService(context);
+            ContextBean contextBean = (ContextBean) context.getBean("contextBean");
+            contextBean.doSmth();
+            MessagePrinterService messagePrinterService = (MessagePrinterService) context.getBean("messagePrinterService");
             messagePrinterService.printMessage();
 
             new Thread(new Runnable() {
@@ -30,12 +33,14 @@ public class Application {
                 @Override
                 public void run() {
                     ThreadService threadService = getThreadService(context);
-                    //threadService.setMessage("Thread1 context");
+                    //we should see here default message
                     threadService.doSmth();
                 }
             }).run();
         }
     }
+
+
 
     private static ThreadService getThreadService(ApplicationContext applicationContext) {
         return (ThreadService) applicationContext.getBean("threadService");
