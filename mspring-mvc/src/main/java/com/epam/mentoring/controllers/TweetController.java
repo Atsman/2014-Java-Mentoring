@@ -29,7 +29,7 @@ public class TweetController {
 	@Autowired
 	private TweetService tweetService;
 	
-	@RequestMapping(produces={"application/xml", "application/json"})
+	@RequestMapping(produces={"application/xml", "application/json"}, method = RequestMethod.GET)
 	@ResponseStatus(HttpStatus.OK)
 	public @ResponseBody List<Tweet> listWithMarshalling() {
 		return tweetService.list();
