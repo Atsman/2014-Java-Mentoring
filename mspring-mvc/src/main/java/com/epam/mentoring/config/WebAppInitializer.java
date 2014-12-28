@@ -1,5 +1,6 @@
 package com.epam.mentoring.config;
 
+import javax.servlet.MultipartConfigElement;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletRegistration;
 
@@ -27,7 +28,10 @@ public class WebAppInitializer implements WebApplicationInitializer {
         // Register and map the dispatcher servlet
         ServletRegistration.Dynamic dispatcher = container.addServlet("dispatcher", new DispatcherServlet(dispatcherServlet));
         dispatcher.setLoadOnStartup(1);
-        dispatcher.addMapping("/");    
+        dispatcher.addMapping("/");
+        dispatcher.setMultipartConfig(
+                new MultipartConfigElement("/tmp", 25 * 1024 * 1024, 125 * 1024 * 1024, 1 * 1024 * 1024)
+        );
     }
     
  }

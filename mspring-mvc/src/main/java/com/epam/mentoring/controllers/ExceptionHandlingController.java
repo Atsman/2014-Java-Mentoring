@@ -13,13 +13,13 @@ public class ExceptionHandlingController {
 	private static final Logger LOGGER = Logger.getLogger(TweetController.class);
 
 	@ExceptionHandler(Exception.class)
-	public String handleError(HttpServletRequest req, Exception exception) {
+	public ModelAndView handleError(HttpServletRequest req, Exception exception) {
 		LOGGER.error("Request: " + req.getRequestURL() + " raised " + exception);
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("exception", exception);
 		mav.addObject("url", req.getRequestURL());
 		mav.setViewName("error");
-		return "404";
+		return mav;
 	}
 
 }

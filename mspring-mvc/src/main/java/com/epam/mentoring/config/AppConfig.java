@@ -10,6 +10,8 @@ import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.http.converter.xml.Jaxb2RootElementHttpMessageConverter;
 import org.springframework.web.accept.ContentNegotiationManager;
+import org.springframework.web.multipart.MultipartResolver;
+import org.springframework.web.multipart.support.StandardServletMultipartResolver;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.ContentNegotiationConfigurer;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
@@ -51,6 +53,12 @@ public class AppConfig extends WebMvcConfigurerAdapter {
 		resolver.setContentNegotiationManager(manager);
 		return resolver;
 	}
+
+    @Bean(name = "multipartResolver")
+    public MultipartResolver getStandardServletMultipartResolver() {
+        MultipartResolver multipartResolver = new StandardServletMultipartResolver();
+        return multipartResolver;
+    }
 
 	@Override
 	public void configureMessageConverters(List<HttpMessageConverter<?>> converters) {
