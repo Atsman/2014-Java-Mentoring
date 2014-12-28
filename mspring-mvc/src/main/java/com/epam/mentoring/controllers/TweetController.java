@@ -2,6 +2,7 @@ package com.epam.mentoring.controllers;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
@@ -9,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -25,7 +28,8 @@ import com.epam.mentoring.services.TweetService;
 public class TweetController {
 	
 	private static final Logger LOGGER = Logger.getLogger(TweetController.class);
-	
+	private static final String NOT_VALID_TWEET = "notValidTweet";
+
 	@Autowired
 	private TweetService tweetService;
 	
@@ -44,12 +48,20 @@ public class TweetController {
 	}
 	
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String create(Model model) {
-		return "/tweets/create";
+	public String create(Model model, HttpSession httpSession) {
+		model.addAttribute(NOT_VALID_TWEET, httpSession.getAttribute(NOT_VALID_TWEET));
+        return "/tweets/create";
 	}
 	
 	@RequestMapping(method = RequestMethod.POST)
-	public String save(@Valid @ModelAttribute("tweet") Tweet tweet) {
+	public String save(@ModelAttribute("tweet") @Valid Tweet tweet, BindingResult result, HttpSession httpSession) {
+        if(result.hasErrors()) {
+            httpSession.setAttribute(NOT_VALID_TWEET, tweet);
+
+            return "redirect:/tweets/create";
+        } else {
+            httpSession.removeAttribute(NOT_VALID_TWEET);
+        }
 		LOGGER.info("save tweet text: " + tweet.getText());
 		tweetService.save(tweet);
 		return "redirect:/tweets";
@@ -84,7 +96,5 @@ public class TweetController {
 		tweetService.delete(tweet);
 		return "redirect:/tweets";
 	}
-	
-	
 	
 }

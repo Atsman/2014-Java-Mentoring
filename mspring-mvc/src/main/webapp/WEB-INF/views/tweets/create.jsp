@@ -9,7 +9,8 @@
 <body>
 	<h1>Create tweet</h1>
  	<form:form servletRelativeAction="/tweets" method="POST" commandName="tweet">
- 		<textarea name="text" rows="10" cols="40"></textarea>
+ 		<textarea name="text" rows="10" cols="40">${notValidTweet.text}</textarea>
+        <input type="text" name="author" value="${notValidTweet.author}">
  		<input type="submit" value="Submit">
  	</form:form>
 </body>

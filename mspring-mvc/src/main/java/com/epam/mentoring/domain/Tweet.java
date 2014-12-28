@@ -12,6 +12,10 @@ public class Tweet {
 	@Size(min=1,max=255)
 	private String text;
 
+    @NotEmpty
+    @Size(min=1,max=255)
+    private String author;
+
 	public String getText() {
 		return text;
 	}
@@ -27,5 +31,12 @@ public class Tweet {
 	public void setId(long id) {
 		this.id = id;
 	}
-	
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
 }
