@@ -4,10 +4,10 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Tweet list</title>
+	<title>Tweet list Alter View #2</title>
 </head>
 <body>
-	<h1>Tweet list</h1>
+	<h1>Tweet list Alter View #2</h1>
 	<ul>
 	 	<c:forEach items="${tweets}" var="tweet">
 	 		<li> 

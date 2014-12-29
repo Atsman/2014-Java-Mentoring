@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +28,7 @@ public class TweetController {
 	
 	private static final Logger LOGGER = Logger.getLogger(TweetController.class);
 	private static final String NOT_VALID_TWEET = "notValidTweet";
+	private static final String ALTER_TWEET_INDEX = "/tweets/index.2";
 
 	@Autowired
 	private TweetService tweetService;
@@ -40,10 +40,13 @@ public class TweetController {
 	}
 	
 	@RequestMapping(method = RequestMethod.GET)
-	public String index(Model model, @RequestHeader(value="User-Agent") String userAgent) {
+	public String index(Model model, @RequestHeader(value="User-Agent") String userAgent, @RequestHeader(value="Alternates", defaultValue="def") String alternates) {
 		LOGGER.info("User agent: " + userAgent);
 		LOGGER.info("List size " + tweetService.list().size());
 		model.addAttribute("tweets", tweetService.list());
+		if(alternates != "def" && alternates.contains(ALTER_TWEET_INDEX)) {
+			return ALTER_TWEET_INDEX;
+		}
 		return "/tweets/index";
 	}
 	
