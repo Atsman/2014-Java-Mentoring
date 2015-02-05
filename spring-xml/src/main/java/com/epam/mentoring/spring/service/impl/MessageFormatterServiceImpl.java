@@ -10,6 +10,11 @@ public class MessageFormatterServiceImpl implements MessageFormatterService {
     private String start;
     private String end;
 
+    public MessageFormatterServiceImpl(String start, String end) {
+        this.start = start;
+        this.end = end;
+    }
+
     @Override
     public String format(String message) {
         return start + message + end;
@@ -22,4 +27,5 @@ public class MessageFormatterServiceImpl implements MessageFormatterService {
     public void setEnd(String end) {
         this.end = end;
     }
+
 }

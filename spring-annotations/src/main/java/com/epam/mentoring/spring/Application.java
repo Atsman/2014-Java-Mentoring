@@ -13,14 +13,15 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class Application {
 
     public static void main(String[] args) {
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-        MessageService messageService = applicationContext.getBean(MessageService.class);
-        messageService.setMessage("My message!!!");
-        MessagePrinterService messagePrinterServiceService = applicationContext.getBean(MessagePrinterService.class);
-        messagePrinterServiceService.printMessage();
+        try(AnnotationConfigApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);) {
+            MessageService messageService = applicationContext.getBean(MessageService.class);
+            messageService.setMessage("My message!!!");
+            MessagePrinterService messagePrinterServiceService = applicationContext.getBean(MessagePrinterService.class);
+            messagePrinterServiceService.printMessage();
 
-        SomeBean sb = applicationContext.getBean(SomeBean.class);
-        sb.doSmth();
+            SomeBean sb = applicationContext.getBean(SomeBean.class);
+            sb.doSmth();
+        }
     }
 
 }
