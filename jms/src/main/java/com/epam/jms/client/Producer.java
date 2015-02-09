@@ -10,10 +10,12 @@ import javax.jms.*;
 public class Producer {
 
     public static String[] topics = {"Topic1", "Topic2", "Topic3"};
+    public static final String URL = "tcp://EPBYGROW0183:61616";
 
     public static void main(String[] args) throws InterruptedException {
         while (true) {
-            thread(new HelloWorldProducer(), false);
+            thread(new QueueProducer(), false);
+            thread(new TopicProducer(), false);
             Thread.sleep(1000);
         }
     }
@@ -24,18 +26,16 @@ public class Producer {
         brokerThread.start();
     }
 
-    public static class HelloWorldProducer implements Runnable {
+    public static class TopicProducer implements Runnable {
         public void run() {
             try {
-                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory("tcp://EPBYGROW0183:61616");
-
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL);
                 Connection connection = connectionFactory.createConnection();
                 connection.start();
-
                 Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
 
                 String topic = topics[(int)Math.round(Math.random()*2)];
-                Destination destination = session.createQueue(topic);
+                Destination destination = session.createTopic(topic);
 
                 MessageProducer producer = session.createProducer(destination);
                 producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
@@ -43,13 +43,43 @@ public class Producer {
                 String text = "Hello jms! Topic: " + topic;
                 TextMessage message = session.createTextMessage(text);
 
-                System.out.println("Sent message: " + message + "Topic - " + topic );
+                System.out.println("Sent message: " + message.getText() + " Topic - " + topic );
                 producer.send(message);
 
                 session.close();
                 connection.close();
+            } catch (Exception e) {
+                System.out.println("Caught: " + e);
+                e.printStackTrace();
             }
-            catch (Exception e) {
+        }
+    }
+
+    public static class QueueProducer implements Runnable {
+        public void run() {
+            try {
+                ActiveMQConnectionFactory connectionFactory = new ActiveMQConnectionFactory(URL);
+
+                Connection connection = connectionFactory.createConnection();
+                connection.start();
+
+                Session session = connection.createSession(false, Session.AUTO_ACKNOWLEDGE);
+
+                String topic = "myQueue";
+                Destination destination = session.createQueue(topic);
+
+                MessageProducer producer = session.createProducer(destination);
+                producer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+
+                String text = "Hello jms from myQueue";
+                TextMessage message = session.createTextMessage(text);
+
+                System.out.println(text);
+                producer.send(message);
+
+                session.close();
+                connection.close();
+            } catch (Exception e) {
                 System.out.println("Caught: " + e);
                 e.printStackTrace();
             }

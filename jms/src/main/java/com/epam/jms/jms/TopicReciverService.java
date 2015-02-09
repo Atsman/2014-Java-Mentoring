@@ -2,7 +2,6 @@ package com.epam.jms.jms;
 
 import org.apache.log4j.Logger;
 import org.springframework.jms.annotation.JmsListener;
-import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Component;
 
 import javax.jms.JMSException;
@@ -16,9 +15,10 @@ import java.io.PrintWriter;
  * Created by Aleh_Atsman on 2/9/2015.
  */
 @Component
-public class ReciverService {
+public class TopicReciverService {
 
-    private static final Logger logger = Logger.getLogger(ReciverService.class);
+
+    private static final Logger logger = Logger.getLogger(TopicReciverService.class);
 
     @JmsListener(containerFactory = "myJmsListenerContainerFactory", destination = "Topic1")
     public void l1(TextMessage message) throws JMSException {

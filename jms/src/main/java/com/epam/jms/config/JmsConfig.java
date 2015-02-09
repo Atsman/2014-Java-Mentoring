@@ -23,7 +23,16 @@ public class JmsConfig {
     }
 
     @Bean
-    public DefaultJmsListenerContainerFactory myJmsListenerContainerFactory() {
+     public DefaultJmsListenerContainerFactory myJmsListenerContainerFactory() {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        factory.setConnectionFactory(connectionFactory());
+        factory.setConcurrency("5");
+        factory.setPubSubDomain(true);
+        return factory;
+    }
+
+    @Bean
+    public DefaultJmsListenerContainerFactory jmsQueueListener() {
         DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
         factory.setConnectionFactory(connectionFactory());
         factory.setConcurrency("5");
