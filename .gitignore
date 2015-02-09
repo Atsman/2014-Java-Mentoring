@@ -47,3 +47,9 @@ release.properties
 /01.Classloading/*.project
 *.classpath
 *.project
+
+#Gradle
+.gradletasknamecache
+.gradle/
+build/
+bin/
