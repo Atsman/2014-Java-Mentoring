@@ -1,4 +1,4 @@
-package com.epam.enterprise.orb;
+package com.epam.enterprise.orb.server;
 
 import com.epam.enterprise.orb.network.ClientMessage;
 import com.epam.enterprise.orb.network.ServerMessage;

@@ -1,4 +1,6 @@
-package com.epam.enterprise.orb;
+package com.epam.enterprise.orb.server;
+
+import com.epam.enterprise.orb.Calculator;
 
 /**
  * Created by Aleh_Atsman on 2/10/2015.

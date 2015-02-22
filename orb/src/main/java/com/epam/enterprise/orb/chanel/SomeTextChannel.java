@@ -1,6 +1,4 @@
-package com.epam.enterprise.orb.network;
-
-import com.google.gson.Gson;
+package com.epam.enterprise.orb.chanel;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -11,15 +9,9 @@ import java.net.URL;
 /**
  * Created by Aleh_Atsman on 2/10/2015.
  */
-public class Connection<T> {
+public class SomeTextChannel {
 
-    private Gson gson = new Gson();
-
-    public T execute(ClientMessage clientMessage) throws Exception {
-        return sendPost(clientMessage);
-    }
-
-    private T sendPost(ClientMessage clientMessage) throws Exception {
+    public String sendPost(String message) throws Exception {
         String url = "http://localhost:4567/execute";
         URL obj = new URL(url);
         HttpURLConnection con = (HttpURLConnection) obj.openConnection();
@@ -30,7 +22,7 @@ public class Connection<T> {
         // Send post request
         con.setDoOutput(true);
         DataOutputStream wr = new DataOutputStream(con.getOutputStream());
-        wr.writeBytes(gson.toJson(clientMessage));
+        wr.writeBytes(message);
         wr.flush();
         wr.close();
 
@@ -47,12 +39,7 @@ public class Connection<T> {
         }
         in.close();
 
-        ServerMessage serverMessage = gson.fromJson(response.toString(), ServerMessage.class);
-
-        if(serverMessage.getException() != null) {
-            throw  serverMessage.getException();
-        }
-        return (T) serverMessage.getReturnType();
+        return response.toString();
     }
 
 }
